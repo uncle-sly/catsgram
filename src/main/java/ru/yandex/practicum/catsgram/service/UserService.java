@@ -7,10 +7,7 @@ import ru.yandex.practicum.catsgram.exception.NotFoundException;
 import ru.yandex.practicum.catsgram.model.User;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -72,6 +69,11 @@ public class UserService {
                 .stream()
                 .map(User::getEmail)
                 .anyMatch(u -> u.equals(user.getEmail()));
+    }
+
+    public Optional findUserById (Long id) {
+
+        return Optional.ofNullable(users.get(id));
     }
 
 }

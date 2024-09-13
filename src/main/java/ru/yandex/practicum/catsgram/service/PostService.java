@@ -14,12 +14,22 @@ import java.util.Map;
 public class PostService {
 
     private final Map<Long, Post> posts = new HashMap<>();
+    UserService userService;
+
+    public PostService(UserService userService) {
+        this.userService = userService;
+    }
 
     public Collection<Post> findAll() {
         return posts.values();
     }
 
     public Post create(Post post) {
+
+        if (userService.findUserById(post.getAuthorId()).isEmpty()) {
+            throw new ConditionsNotMetException("Автор с id = "+ post.getId() + " не найден");
+        }
+
         // проверяем выполнение необходимых условий
         if (post.getDescription() == null || post.getDescription().isBlank()) {
             throw new ConditionsNotMetException("Описание не может быть пустым");
