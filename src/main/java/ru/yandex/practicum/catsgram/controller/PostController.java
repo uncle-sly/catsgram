@@ -20,6 +20,11 @@ public class PostController {
         return postService.findAll();
     }
 
+    @GetMapping("{id}")
+    public Post getPostById(@PathVariable Long id) {
+       return postService.getPostById(id);
+    }
+
     //@RequestBody означает, что значение, которое будет передано в метод в качестве аргумента, нужно взять из тела запроса.
     //При этом объект, который пришёл в теле запроса, например, в виде JSON, будет автоматически десериализован в Java-объект.
     @PostMapping
@@ -31,5 +36,7 @@ public class PostController {
     public Post update(@RequestBody Post newPost) {
         return postService.update(newPost);
     }
+
+
 
 }
