@@ -6,10 +6,10 @@ import ru.yandex.practicum.catsgram.exception.NotFoundException;
 import ru.yandex.practicum.catsgram.model.Post;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -21,8 +21,25 @@ public class PostService {
         this.userService = userService;
     }
 
-    public Collection<Post> findAll() {
-        return new ArrayList<>(posts.values());
+    public Collection<Post> findAll(Long size, String sort, Long from) {
+        switch (sort) {
+            case  "ASCENDING" :
+                return posts.values().stream()
+                        .sorted(Comparator.comparing(Post::getPostDate))
+                        .filter(post1 -> post1.getId()>from)
+                        .limit(size)
+                        .toList();
+
+            case  "DESCENDING" :
+                return posts.values().stream()
+                        .sorted(Comparator.comparing(Post::getPostDate).reversed())
+                        .filter(post -> post.getId()>from)
+                        .limit(size)
+                        .toList();
+            default:
+                return new ArrayList<>(posts.values());
+        }
+
     }
 
     public Post getPostById(Long id) {
@@ -42,7 +59,8 @@ public class PostService {
         }
         // формируем дополнительные данные
         post.setId(getNextId());
-        post.setPostDate(Instant.now());
+//        post.setPostDate(LocalDate.ofInstant(Instant.now(), ZoneId.of("UTC+3")));
+        post.setPostDate(post.getPostDate());
         // сохраняем новую публикацию в памяти приложения
         posts.put(post.getId(), post);
         return post;
