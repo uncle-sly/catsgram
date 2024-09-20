@@ -71,7 +71,7 @@ public class UserService {
                 .anyMatch(u -> u.equals(user.getEmail()));
     }
 
-    public Optional<User> findUserById (Long id) {
+    public Optional<User> findUserById(Long id) {
 
         return Optional.ofNullable(users.get(id));
     }

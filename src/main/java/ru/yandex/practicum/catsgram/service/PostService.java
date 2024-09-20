@@ -9,7 +9,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -26,14 +25,14 @@ public class PostService {
             case  "ASCENDING" :
                 return posts.values().stream()
                         .sorted(Comparator.comparing(Post::getPostDate))
-                        .filter(post1 -> post1.getId()>from)
+                        .filter(post1 -> post1.getId() > from)
                         .limit(size)
                         .toList();
 
             case  "DESCENDING" :
                 return posts.values().stream()
                         .sorted(Comparator.comparing(Post::getPostDate).reversed())
-                        .filter(post -> post.getId()>from)
+                        .filter(post -> post.getId() > from)
                         .limit(size)
                         .toList();
             default:
@@ -42,15 +41,15 @@ public class PostService {
 
     }
 
-    public Post getPostById(Long id) {
-        return posts.get(id);
+    public Optional<Post> getPostById(Long id) {
+        return Optional.ofNullable(posts.get(id));
     }
 
 
     public Post create(Post post) {
 
         if (userService.findUserById(post.getAuthorId()).isEmpty()) {
-            throw new ConditionsNotMetException("Автор с id = "+ post.getId() + " не найден");
+            throw new ConditionsNotMetException("Автор с id = " + post.getId() + " не найден");
         }
 
         // проверяем выполнение необходимых условий
@@ -59,8 +58,8 @@ public class PostService {
         }
         // формируем дополнительные данные
         post.setId(getNextId());
-//        post.setPostDate(LocalDate.ofInstant(Instant.now(), ZoneId.of("UTC+3")));
-        post.setPostDate(post.getPostDate());
+        post.setPostDate(LocalDate.ofInstant(Instant.now(), ZoneId.of("UTC+3")));
+//        post.setPostDate(post.getPostDate());
         // сохраняем новую публикацию в памяти приложения
         posts.put(post.getId(), post);
         return post;

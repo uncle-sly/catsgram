@@ -9,7 +9,7 @@ public enum SortOrder {
     public static String from(String order) {
 
 
-        switch (order.toLowerCase()){
+        switch (order.toLowerCase()) {
             case "ascending":
             case "asc":
                 return "ASCENDING";
