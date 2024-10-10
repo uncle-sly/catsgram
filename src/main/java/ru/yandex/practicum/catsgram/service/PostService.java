@@ -10,14 +10,11 @@ import ru.yandex.practicum.catsgram.dto.PostDto;
 import ru.yandex.practicum.catsgram.exception.ConditionsNotMetException;
 import ru.yandex.practicum.catsgram.exception.NotFoundException;
 import ru.yandex.practicum.catsgram.mapper.PostMapper;
-import ru.yandex.practicum.catsgram.mapper.UserMapper;
 import ru.yandex.practicum.catsgram.model.Image;
 import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.model.User;
 
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -25,16 +22,9 @@ import java.util.*;
 public class PostService {
 
 //    private final Map<Long, Post> posts = new HashMap<>();
-    PostRepository postRepository;
-    UserRepository userRepository;
-    ImageRepository imageRepository;
-
-    UserService userService;
-
-
-//    public PostService(UserService userService) {
-//        this.userService = userService;
-//    }
+    private final PostRepository postRepository;
+    private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
 
     public List<PostDto> findAll(Long size, String sort, Long from) {
         switch (sort) {
@@ -68,10 +58,10 @@ public class PostService {
         User author = userRepository.findById(post.getAuthor().getId())
                 .orElseThrow(() -> new RuntimeException("Автор поста не найден"));
 
-        //List<Image> images = imageRepository.findByPostId(postId);
+        List<Image> images = imageRepository.findByPostId(postId);
 
         post.setAuthor(author);
-        //post.setImages(images);
+        post.setImages(images);
 
         return PostMapper.mapToPostDto(post);
 

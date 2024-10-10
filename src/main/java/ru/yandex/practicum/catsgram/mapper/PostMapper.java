@@ -8,8 +8,6 @@ import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.model.User;
 
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -32,7 +30,7 @@ public final class PostMapper {
         User author = post.getAuthor();
         postDto.setAuthor(UserMapper.mapToUserDto(author));
 
-        if (!post.getImages().isEmpty()) {
+        if (!(post.getImages() == null)) {
             List<Long> imageIds = post.getImages().stream()
                     .map(Image::getId)
                     .toList();

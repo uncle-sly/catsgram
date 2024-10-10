@@ -14,17 +14,14 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-//    private final Map<Long, User> users = new HashMap<>();
 
     public List<UserDto> getAllUsers() {
-//        return new ArrayList<>(users.values());
         return userRepository.findAll().stream()
                 .map(UserMapper::mapToUserDto)
                 .toList();
@@ -105,9 +102,6 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("Пользователь не найден с ID: " + userId));
     }
 
-    /*   public Optional<User> findUserById(Long id) {
-            return Optional.ofNullable(users.get(id));
-        } */
 
     public List<UserDto> getUsers() {
         return userRepository.findAll()

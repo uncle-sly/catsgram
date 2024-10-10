@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(of = {"id"})
 public class Image {
 
-    private Long id;
+    private long id;
     private long postId;
     private String originalFileName;
     private String filePath;
