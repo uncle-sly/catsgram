@@ -48,7 +48,7 @@ public class PostService {
 
     public Post create(Post post) {
 
-        if (userService.findUserById(post.getAuthorId()).isEmpty()) {
+        if (userService.getUserById(post.getAuthorId()) == null) {
             throw new ConditionsNotMetException("Автор с id = " + post.getId() + " не найден");
         }
 
