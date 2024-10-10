@@ -4,10 +4,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.catsgram.model.Post;
-import ru.yandex.practicum.catsgram.model.User;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +41,6 @@ public class PostRepository extends BaseRepository<Post> {
                 post.getAuthor().getId(),
                 post.getDescription(),
                 Timestamp.from(post.getPostDate())
-             //   Timestamp.from(Instant.from(post.getPostDate()))
         );
         post.setId(id);
         return post;
@@ -55,7 +52,6 @@ public class PostRepository extends BaseRepository<Post> {
                 post.getDescription(),
                 Timestamp.from(post.getPostDate()),
                 post.getId()
-                //post.getAuthor(),
         );
         return post;
     }

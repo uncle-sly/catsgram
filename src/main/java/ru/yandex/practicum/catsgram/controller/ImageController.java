@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.yandex.practicum.catsgram.dto.ImageDto;
 import ru.yandex.practicum.catsgram.dto.ImageUploadResponse;
-import ru.yandex.practicum.catsgram.model.Image;
 import ru.yandex.practicum.catsgram.model.ImageData;
 import ru.yandex.practicum.catsgram.service.ImageService;
 

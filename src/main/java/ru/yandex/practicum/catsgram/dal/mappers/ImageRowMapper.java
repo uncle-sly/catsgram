@@ -3,12 +3,9 @@ package ru.yandex.practicum.catsgram.dal.mappers;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.catsgram.model.Image;
-import ru.yandex.practicum.catsgram.model.Post;
-import ru.yandex.practicum.catsgram.model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 @Component
 public class ImageRowMapper implements RowMapper<Image> {

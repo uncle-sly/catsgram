@@ -4,12 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.yandex.practicum.catsgram.dto.*;
 import ru.yandex.practicum.catsgram.model.Image;
-import ru.yandex.practicum.catsgram.model.Post;
-import ru.yandex.practicum.catsgram.model.User;
 
 import java.nio.file.Path;
-import java.time.Instant;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ImageMapper {
