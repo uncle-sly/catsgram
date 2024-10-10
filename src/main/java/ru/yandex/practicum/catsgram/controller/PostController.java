@@ -2,13 +2,13 @@ package ru.yandex.practicum.catsgram.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.catsgram.dto.NewPostRequest;
+import ru.yandex.practicum.catsgram.dto.PostDto;
 import ru.yandex.practicum.catsgram.exception.ParameterNotValidException;
-import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.service.PostService;
 import ru.yandex.practicum.catsgram.service.SortOrder;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
@@ -19,9 +19,8 @@ public class PostController {
         this.postService = postService;
     }
 
-
     @GetMapping
-    public Collection<Post> findAll(
+    public List<PostDto> findAll(
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam (defaultValue = "10") Long size,
             @RequestParam (defaultValue = "0") Long from
@@ -40,7 +39,7 @@ public class PostController {
     }
 
     @GetMapping("{id}")
-    public Optional<Post> getPostById(@PathVariable Long id) {
+    public PostDto getPostById(@PathVariable Long id) {
        return postService.getPostById(id);
     }
 
@@ -48,15 +47,14 @@ public class PostController {
     //При этом объект, который пришёл в теле запроса, например, в виде JSON, будет автоматически десериализован в Java-объект.
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Post create(@RequestBody Post post) {
-        return postService.create(post);
+    public PostDto create(@RequestBody NewPostRequest request) {
+        return postService.create(request);
     }
 
-    @PutMapping
-    public Post update(@RequestBody Post newPost) {
-        return postService.update(newPost);
+    @PutMapping("{postId}")
+    public PostDto update(@PathVariable long postId, @RequestBody NewPostRequest request) {
+        return postService.update(postId, request);
     }
-
 
 
 }

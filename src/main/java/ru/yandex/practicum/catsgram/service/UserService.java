@@ -23,9 +23,11 @@ public class UserService {
     private final UserRepository userRepository;
 //    private final Map<Long, User> users = new HashMap<>();
 
-    public Collection<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
 //        return new ArrayList<>(users.values());
-        return userRepository.findAll();
+        return userRepository.findAll().stream()
+                .map(UserMapper::mapToUserDto)
+                .toList();
     }
 
     public UserDto createUser(NewUserRequest request) {
